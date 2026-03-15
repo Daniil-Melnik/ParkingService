@@ -4,7 +4,7 @@
   <li>Spring Boot</li>
   <li>Spring Cloud</li>
   <li>PostgreSQL</li>
-  <li>Hiberanate ORM</li>
+  <li>Hibernate ORM</li>
   <li>
     Java
     <ul>
@@ -48,7 +48,7 @@
     <li><code>/node/{nodeName}</code></li>
     <li><code>/getByPlaceNo/{placeNo}</code></li>
     <li><code>/getByOperationID/{id}</code></li>
-    <li><code>/findByCar_RegNumber/{regNumber}</code></li>
+    <li><code>/findByCarRegNumber/{regNumber}</code></li>
     <li><code>/active</code></li>
     <li><code>/{parkingNodeName}/{parkingPlaceNo}/{id}/{carRegNum}</code></li>
   </ul>
