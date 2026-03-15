@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: parking
+  profiles:
+    active:
+      native
+    cloud:
+      config:
+        server:
+          native:
+            search-locations: classpath:/
+server:
+  port: 8071
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
