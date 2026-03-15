@@ -48,11 +48,11 @@ public class ParkingController {
         return ResponseEntity.ok(operation);
     }
 
-    @GetMapping("/findByCar_RegNumber/{regNumber}")
+    @GetMapping("/findByCarRegNumber/{carRegNumber}")
     public ResponseEntity<List<ParkingOperation>> findByCarRegNumber(
-            @PathVariable String regNumber
+            @PathVariable String carRegNumber
     ) {
-        List<ParkingOperation> operations = parkingService.getParkingOperationsByCarRegNum(regNumber);
+        List<ParkingOperation> operations = parkingService.getParkingOperationsByCarRegNum(carRegNumber);
         return ResponseEntity.ok(operations);
     }
 
@@ -64,55 +64,42 @@ public class ParkingController {
         return ResponseEntity.ok(operations);
     }
 
-    @GetMapping(value = "/{parkingNodeName}/{parkingPlaceNo}/{id}/{carRegNum}")
+    @GetMapping(value = "/{parkingNodeName}/{placeNo}/{id}/{carRegNum}")
     public ResponseEntity<ParkingOperation> getParkingOperation(
             @PathVariable("id") int regOperationNo,
             @PathVariable("carRegNum") String carRegNum,
             @PathVariable("parkingNodeName") String parkingNodeName,
-            @PathVariable("parkingPlaceNo") String parkingPlaceNo,
+            @PathVariable("placeNo") String placeNo,
             @RequestHeader (value = "Accept-Language", required = false) Locale locale
     ){
-        ParkingOperation parkingOperation = parkingService.getParkingOperation(regOperationNo, parkingNodeName, parkingPlaceNo, new Car(carRegNum));
+        ParkingOperation parkingOperation = parkingService.getParkingOperation(regOperationNo, parkingNodeName, placeNo, new Car(carRegNum));
 
-        parkingOperation.add(linkTo(methodOn(ParkingController.class).getParkingOperation(regOperationNo, carRegNum, parkingNodeName,parkingPlaceNo, locale)).withSelfRel());
-        parkingOperation.add(linkTo(methodOn(ParkingController.class).createParkingOperation(parkingNodeName, parkingPlaceNo, parkingOperation, null)).withRel(messages.getMessage("parkingSystem.create.link.message", null, locale)));
+        parkingOperation.add(linkTo(methodOn(ParkingController.class).getParkingOperation(regOperationNo, carRegNum, parkingNodeName,placeNo, locale)).withSelfRel());
+        parkingOperation.add(linkTo(methodOn(ParkingController.class).createParkingOperation(parkingNodeName, placeNo, parkingOperation, null)).withRel(messages.getMessage("parkingSystem.create.link.message", null, locale)));
         parkingOperation.add(linkTo(methodOn(ParkingController.class).updateParkingOperation(parkingOperation,null)).withRel(messages.getMessage("parkingSystem.update.link.message", null, locale)));
         parkingOperation.add(linkTo(methodOn(ParkingController.class).deleteParkingOperation(regOperationNo, null)).withRel(messages.getMessage("parkingSystem.delete.link.message", null, locale)));
 
         return ResponseEntity.ok(parkingOperation);
     }
 
-    @PostMapping("/{parkingNodeName}/{parkingPlaceNo}")
+    @PostMapping("/{parkingNodeName}/{placeNo}")
     public ResponseEntity<String> createParkingOperation(
             @PathVariable ("parkingNodeName") String parkingNodeName,
-            @PathVariable ("parkingPlaceNo") String parkingPlaceNo,
+            @PathVariable ("placeNo") String placeNo,
             @RequestBody ParkingOperation parkingOperation,
             @RequestHeader (value = "Accept-Language", required = false) Locale locale
     ){
-        //System.out.println(parkingService.createParkingOperation(parkingOperation, parkingNodeName, parkingPlaceNo, locale));
         System.out.println((messages.getMessage("parkingSystem.create.message", null, locale)));
         System.out.println(locale.getLanguage().toString());
-        return ResponseEntity.ok(parkingService.createParkingOperation(parkingOperation, parkingNodeName, parkingPlaceNo, locale));
+        return ResponseEntity.ok(parkingService.createParkingOperation(parkingOperation, parkingNodeName, placeNo, locale));
     }
 
-    /*@PutMapping("/updParking/{newCarRegNum}")
-    public  ResponseEntity<String> updateParkingOperation(
-            @PathVariable ("newCarRegNum") String newCarRegNum,
-            @RequestBody ParkingOperation parkingOperation,
-            @RequestHeader (value = "Accept-Language", required = false) Locale locale
-    ) {
-        System.out.println((messages.getMessage("parkingSystem.update.message", null, locale)));
-        System.out.println(locale.getLanguage().toString());
-        return ResponseEntity.ok(parkingService.updateParkingOperation(parkingOperation, newCarRegNum, locale));
-    }*/
 
     @PutMapping("/updParking")
     public ResponseEntity<String> updateParkingOperation(
             @RequestBody ParkingOperation parkingOperation,
             @RequestHeader(value = "Accept-Language", required = false) Locale locale
     ) {
-        /*System.out.println(messages.getMessage("parkingSystem.update.message", null, locale));
-        System.out.println(locale.getLanguage());*/
 
         return ResponseEntity.ok(parkingService.updateParkingOperation(parkingOperation, locale));
     }
