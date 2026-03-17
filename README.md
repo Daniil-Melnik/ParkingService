@@ -31,11 +31,11 @@
   <li>Развернуть локально PostgreSQL, создать БД parking. Креды для подключения со стороны сервера конечных точек, которым должен отвечать сервер СУБД и БД:
   <ul>
     <li>источник - jdbc:postgresql://localhost:5432/parking</li>
-    <li>логин - admin</li>
+    <li>логин - postgres</li>
     <li>пароль - 12345678</li>
   </ul>
   </li>
-  <li>Восстановить БД - <code>psql -d parking -U admin -f путь\parking_backup.sql</code></li>
+  <li>Восстановить БД - <code>psql -d parking -U postgres -f путь\parking_backup.sql</code></li>
   <li>Запустить сервер конфигураций - <code>java -jar .\configserver-x.x.x-SNAPSHOT.jar</code></li>
   <li>Запустить сервер конечных точек - <code>java -jar .\centers-x.x.x-SNAPSHOT.jar</code></li>
 </ul></p>
