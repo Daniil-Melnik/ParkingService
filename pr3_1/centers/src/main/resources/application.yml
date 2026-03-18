@@ -5,6 +5,7 @@
       active: dev
   config:
     import: optional:configserver:http://localhost:8071
+    #import: optional:configserver:http://configserver-instance:8071
 
 management:
   endpoints:

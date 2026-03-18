@@ -1,0 +1,16 @@
+docker network create parking-network
+
+
+docker-compose up -d # из папки с docker-compose.yml, запуск БД
+docker network connect parking-network Parking_DB # включить БД в сеть
+
+docker build -t configserver:0.0.1 .
+docker run -d -p 8071:8071 --name configserver-instance --network parking-network  configserver:0.0.1
+
+docker build -t appserver:0.0.1 .
+docker run -d -p 8080:8080 --name appserver-instance --network parking-network appserver:0.0.1
+
+##############################################
+0) проработать передачу версии (профиля) приложения appserver: dev/prod для задания пути к серверу конфигураций и получения конфигурации БД docker или localhost
+1) проработать вопрос нахождения БД в сети на входе
+2) oбъединить три контейнера под одним docker-compose
