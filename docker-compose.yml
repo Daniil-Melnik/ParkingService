@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # 1 parking-db
+  db:
+    image: postgres:16
+    container_name: parking-db-instance
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_USER: admin
+      POSTGRES_DB: parking
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./pr3_docker/ps_DB/init-scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d parking"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+    networks:
+      - parking-network
+
+  # 2 configserver
+  config-server:
+    build: ./pr3_2/configserver
+    container_name: configserver-instance
+    ports:
+      - "8071:8071"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - parking-network
+
+  # 3 appserver
+  app-server:
+    build: ./pr3_1/centers
+    container_name: appserver-instance
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - CONFIG_SERVER_URL=http://configserver-instance:8071
+    depends_on:
+      config-server:
+        condition: service_started
+      db:
+        condition: service_healthy
+    restart: on-failure  # !!!
+    networks:
+      - parking-network
+
+volumes:
+  postgres_data:
+
+networks:
+  parking-network:
+    name: parking-network # !!!
+    driver: bridge
