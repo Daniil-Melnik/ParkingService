@@ -27,6 +27,29 @@
   <li>Maven v3.9.14 <a href="https://dlcdn.apache.org/maven/maven-3/3.9.14/binaries/apache-maven-3.9.14-bin.zip">скачать</a></li>
 </ul>
 <h2>Запуск</h2>
+<p>Предусмотрено 2 способа развёртывания системы: <ul>
+  <li>
+   1) Docker
+  </li>
+  <li>
+    2) Прямое развёртывание на сервере
+  </li>
+</ul> через docker-compose </p>
+<h3>1. Docker</h3>
+<ul>
+  <li>
+    Клонировать репозиторий на локальный диск
+  </li>
+  <li>
+    Перейти в папку <code>ParkingService</code> и выполнить:
+    <ul>
+      <li>Для Linux - <code>docker compose up -d</code></li>
+      <li>Для Windows - <code>docker-compose up -d</code></li>
+    </ul>
+  </li>
+  <li>Выполнить восстановление СУБД: <code>docker exec -it parking-db-instance psql -U admin -d parking -f /docker-entrypoint-initdb.d/parking_backup.sql</code></li>
+</ul>
+<h3>2. Прямое развёртывание на сервере</h3>
 <p>В ппапке <a href="pr3_jars">pr3_jars</a> находится два исполняемых jar-архива: configserver и centers. Для запуска необходимо: <ul>
   <li>Развернуть локально PostgreSQL, создать БД parking. Креды для подключения со стороны сервера конечных точек, которым должен отвечать сервер СУБД и БД:
   <ul>
