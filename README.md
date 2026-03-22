@@ -51,7 +51,7 @@
     <p><code>docker exec -it parking-db-instance psql -U admin -d parking -f /docker-entrypoint-initdb.d/parking_backup.sql</code></p></li>
 </ul>
 <h3>2. Прямое развёртывание на сервере</h3>
-<p>В ппапке <a href="pr3_jars">pr3_jars</a> находится два исполняемых jar-архива: configserver и centers. Для запуска необходимо: <ul>
+<p>В папке <a href="pr3_jars">pr3_jars</a> находится два исполняемых jar-архива: configserver и centers. Для запуска необходимо: <ul>
   <li>Развернуть локально PostgreSQL, создать БД parking. Креды для подключения со стороны сервера конечных точек, которым должен отвечать сервер СУБД и БД:
   <ul>
     <li>источник - jdbc:postgresql://localhost:5432/parking</li>
