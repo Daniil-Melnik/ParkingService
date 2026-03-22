@@ -42,10 +42,7 @@
   </li>
   <li>
     Перейти в папку <code>ParkingService</code> и выполнить:
-    <ul>
-      <li>Для Linux - <code>docker compose up -d</code></li>
-      <li>Для Windows - <code>docker-compose up -d</code></li>
-    </ul>
+      <p><code>docker compose up -d</code></p>
   </li>
   <li>Выполнить восстановление СУБД:
     <p><code>docker exec -it parking-db-instance psql -U admin -d parking -f /docker-entrypoint-initdb.d/parking_backup.sql</code></p></li>
