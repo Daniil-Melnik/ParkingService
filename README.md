@@ -48,7 +48,7 @@
     </ul>
   </li>
   <li>Выполнить восстановление СУБД:
-    <code>docker exec -it parking-db-instance psql -U admin -d parking -f /docker-entrypoint-initdb.d/parking_backup.sql</code></li>
+    <p><code>docker exec -it parking-db-instance psql -U admin -d parking -f /docker-entrypoint-initdb.d/parking_backup.sql</code></p></li>
 </ul>
 <h3>2. Прямое развёртывание на сервере</h3>
 <p>В ппапке <a href="pr3_jars">pr3_jars</a> находится два исполняемых jar-архива: configserver и centers. Для запуска необходимо: <ul>
